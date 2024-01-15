@@ -1,0 +1,50 @@
+class Solution {
+// Situation 1: the target less than or more than the vector's     left   or right border, in other word, the target is not in the range of  vector. for example, target is 2, an array is {3, 4, 6}, the target is less than 3.
+// Situation 2: the target is within the range of an ordered array, but the target is not in the ordered array. for example, the target is 5, an array is {3, 4, 6}
+// Situation 3: the target is within the range of an ordered array, and we can find out the border of an target.
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int leftBorder = getLeftBorder(nums, target);
+        int rightBorder = getRightBorder(nums,target);
+        // Situation 1
+        if (leftBorder == -2 || rightBorder == -2) return{-1, -1};
+        // Situation 3
+        if (rightBorder - leftBorder > 1) return {leftBorder + 1, rightBorder -1};
+        return {-1, -1};
+
+
+    }
+private:
+int getRightBorder(vector<int>& nums, int target){
+    int left = 0;
+    int right = nums.size() - 1;
+    int rightBorder = -2;
+    while(left <= right){
+        int middle = left + ((right - left) >> 1);
+        if (nums[middle] > target){
+            right = middle - 1;
+        }else{
+            left = middle + 1;
+            rightBorder = left;
+        }
+    }
+    return rightBorder;
+};
+
+int getLeftBorder(vector<int>& nums, int target){
+    int left = 0;
+    int right = nums.size() - 1;
+    int leftBorder = -2;
+    while(left <= right){
+        int middle = left + ((right - left)>> 1);
+        if(nums[middle] >= target){
+            right = middle - 1;
+            leftBorder = right;
+        }else{
+            left = middle + 1;
+        }
+    }
+    return leftBorder;
+};
+
+};
