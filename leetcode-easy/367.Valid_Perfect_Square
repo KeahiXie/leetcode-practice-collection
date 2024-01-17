@@ -1,0 +1,50 @@
+# I used this solution to submit, but there are somwhere that can be optimized in this case
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int start = 0;
+        int end = num;
+        while (start <= end)
+        {
+            int mid = start + ((end - start) >> 1);
+            long long square = static_cast<long long>(mid) * mid;
+            if (square == num)
+                return true;
+            else if (square > num)
+                end = mid - 1;
+            else 
+                start = mid + 1;        
+        }
+        return false;
+    }
+};
+
+--------------------------------------------------------------------
+# This is the better with divide approach solution that uses less memory than previous solution 
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int start = 0;
+        int end = num;
+        if (num < 2)
+            return true;
+        while (start <= end)
+        {
+            int mid = start + ((end - start) >> 1);
+            int div = num / mid;
+            if (div == mid)
+            {
+                if (num % mid == 0)
+                    return true;
+            }
+
+            else if (mid > div)
+                end = mid - 1;
+            else 
+                start = mid + 1;        
+        }
+        return false;
+    }
+};
+
+
