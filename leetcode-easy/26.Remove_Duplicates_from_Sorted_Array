@@ -1,0 +1,54 @@
+# Solution 1: solve this question with two different pointers at the same time
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums)
+    {
+        
+        if(nums.size() == 0) return 0;
+        int slowIndex = 0;
+        int fastIndex = 1;
+        while (fastIndex < nums.size())
+        {
+            if (nums[fastIndex] != nums[slowIndex])
+            {
+                if (fastIndex - slowIndex > 1)
+                    nums[slowIndex + 1] = nums[fastIndex];
+                slowIndex ++;
+            }
+            fastIndex ++;
+
+        }
+        return slowIndex + 1;
+    }
+};
+
+# Solution 2: solve this question with the other vector
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums)
+    {
+        vector<int> temp;
+        for (int i = 1; i < nums.size(); i ++)
+        {
+            if (nums[i] == nums[i - 1])
+            {
+                nums[i-1] = -101;
+            }
+        }
+
+        for (int j = 0; j < nums.size(); j ++)
+        {
+            if (nums[j] != -101)
+            {
+                temp.push_back(nums[j]);
+            }
+        }
+
+        for (int k = 0; k < temp.size(); k ++)
+        {
+            nums[k] = temp[k];
+        }
+
+        return temp.size();
+    }
+};
