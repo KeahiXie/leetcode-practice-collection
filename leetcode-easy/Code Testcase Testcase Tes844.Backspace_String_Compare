@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string dealBackspace(string s)
+    {
+        int sSlowIndex = 0;
+        int sFastIndex = 0;
+        while (sFastIndex < s.length())
+        {
+            if (s[sFastIndex] != '#')
+            {
+                s[sSlowIndex++] = s[sFastIndex];        
+            }
+            else if (sSlowIndex > 0)
+            {
+                sSlowIndex --;
+            }
+            sFastIndex ++;
+        }
+        return s.substr(0,sSlowIndex);
+    }
+
+    bool backspaceCompare(string s, string t) {
+
+        return dealBackspace(s) == dealBackspace(t);
+    }
+};
