@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) 
+    {
+        int slowIndex = 0;
+        int fastIndex = 0;
+        while(fastIndex < nums.size())
+        {
+            if(nums[fastIndex])
+            {
+                int temp = nums[fastIndex];
+                nums[fastIndex] = nums[slowIndex];
+                nums[slowIndex] = temp;
+                slowIndex ++;
+            }
+            fastIndex ++;
+        }
+    }
+};
